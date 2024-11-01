@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Party\PartyCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PartyCategoryController extends Controller
 {
@@ -32,10 +33,13 @@ class PartyCategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'path' => 'required|string|max:255',
+            'path' => 'required|image|mimes:jpeg,png,jpg,gif',
             'status' => 'required|boolean',
         ]);
-
+        if ($request->hasFile('path')) {
+            $path = $request->file('path')->store('public/party_categories');
+            $validated['path'] = Storage::url($path);
+        }
         PartyCategory::create($validated);
 
         return redirect()->route('admin.party_categories.index')->with('success', 'تم إنشاء الفئة بنجاح');
@@ -64,10 +68,16 @@ class PartyCategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'path' => 'required|string|max:255',
+            'path' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'status' => 'required|boolean',
         ]);
-
+        if ($request->hasFile('path')) {
+            if ($partyCategory->path) {
+                Storage::delete(str_replace('/storage/', 'public/', $partyCategory->path));
+            }
+            $path = $request->file('path')->store('public/party_categories');
+            $validated['path'] = Storage::url($path);
+        }
         $partyCategory->update($validated);
 
         return redirect()->route('admin.party_categories.index')->with('success', 'تم تحديث الفئة بنجاح');
@@ -78,6 +88,9 @@ class PartyCategoryController extends Controller
      */
     public function destroy(PartyCategory $partyCategory)
     {
+        if ($partyCategory->path) {
+            Storage::delete(str_replace('/storage/', 'public/', $partyCategory->path));
+        }
         $partyCategory->delete();
         return redirect()->route('admin.party_categories.index')->with('success', 'تم حذف الفئة بنجاح');
     }

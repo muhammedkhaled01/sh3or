@@ -10,8 +10,9 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th>صورة</th>
+
                 <th>الاسم</th>
-                <th>المسار</th>
                 <th>الحالة</th>
                 <th>الإجراءات</th>
             </tr>
@@ -20,9 +21,16 @@
             @foreach ($facilities as $facility)
                 <tr>
                     <td>{{ $facility->id }}</td>
+                    <td>
+                        @if ($facility->path)
+                            <img src="{{ $facility->path }}" alt="Facility Image" width="100" height="100"
+                                style="object-fit: cover;">
+                        @else
+                            <span>لا توجد صورة</span>
+                        @endif
+                    </td>
                     <td>{{ $facility->name }}</td>
-                    <td>{{ $facility->path }}</td>
-                    <td>{{ $facility->status ? 'نشط' : 'غير نشط' }}</td>
+                    <td>{{ $facility->status->value ? 'نشط' : 'غير نشط' }}</td>
                     <td>
                         <a href="{{ route('admin.facilities.edit', $facility->id) }}" class="btn btn-warning">تعديل</a>
                         <form action="{{ route('admin.facilities.destroy', $facility->id) }}" method="POST"

@@ -2,7 +2,7 @@
 
 @section('content')
     <h3>تعديل المدينة</h3>
-    <form action="{{ route('admin.cities.update', $city->id) }}" method="POST">
+    <form action="{{ route('admin.cities.update', $city->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group">
@@ -10,8 +10,11 @@
             <input type="text" class="form-control" id="name" name="name" value="{{ $city->name }}" required>
         </div>
         <div class="form-group">
-            <label for="path">مساؤ</label>
-            <input type="text" class="form-control" id="path" name="path" value="{{ $city->path }}" required>
+            <label for="path">تحميل صورة جديدة</label>
+            <input type="file" class="form-control-file" id="path" name="path">
+            @if ($city->path)
+                <img src="{{ $city->path }}" alt="City Image" width="100">
+            @endif
         </div>
         <div class="form-group">
             <label for="status">الحالة</label>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\City\City;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CityController extends Controller
 {
@@ -32,10 +33,13 @@ class CityController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'path' => 'required|string|max:255',
+            'path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required|boolean',
         ]);
-
+        if ($request->hasFile('path')) {
+            $path = $request->file('path')->store('public/cities');
+            $validated['path'] = Storage::url($path);
+        }
         City::create($validated);
 
         return redirect()->route('admin.cities.index')->with('success', 'City created successfully');
@@ -64,10 +68,16 @@ class CityController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'path' => 'required|string|max:255',
+            'path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required|boolean',
         ]);
-
+        if ($request->hasFile('path')) {
+            if ($city->path) {
+                Storage::delete(str_replace('/storage/', 'public/', $city->path));
+            }
+            $path = $request->file('path')->store('public/cities');
+            $validated['path'] = Storage::url($path);
+        }
         $city->update($validated);
 
         return redirect()->route('admin.cities.index')->with('success', 'City updated successfully');
@@ -78,6 +88,9 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
+        if ($city->path) {
+            Storage::delete(str_replace('/storage/', 'public/', $city->path));
+        }
         $city->delete();
         return redirect()->route('admin.cities.index')->with('success', 'City deleted successfully');
     }

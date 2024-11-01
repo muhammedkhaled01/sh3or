@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Facility\Facility;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FacilityController extends Controller
 {
@@ -32,10 +33,13 @@ class FacilityController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'path' => 'required|string|max:255',
+            'path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required|boolean',
         ]);
-
+        if ($request->hasFile('path')) {
+            $path = $request->file('path')->store('public/facilities');
+            $validated['path'] = Storage::url($path);
+        }
         Facility::create($validated);
 
         return redirect()->route('admin.facilities.index')->with('success', 'Facility created successfully');
@@ -64,10 +68,16 @@ class FacilityController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'path' => 'required|string|max:255',
+            'path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required|boolean',
         ]);
-
+        if ($request->hasFile('path')) {
+            if ($facility->path) {
+                Storage::delete(str_replace('/storage/', 'public/', $facility->path));
+            }
+            $path = $request->file('path')->store('public/facilities');
+            $validated['path'] = Storage::url($path);
+        }
         $facility->update($validated);
 
         return redirect()->route('admin.facilities.index')->with('success', 'Facility updated successfully');
@@ -78,6 +88,9 @@ class FacilityController extends Controller
      */
     public function destroy(Facility $facility)
     {
+        if ($facility->path) {
+            Storage::delete(str_replace('/storage/', 'public/', $facility->path));
+        }
         $facility->delete();
         return redirect()->route('admin.facilities.index')->with('success', 'Facility deleted successfully');
     }

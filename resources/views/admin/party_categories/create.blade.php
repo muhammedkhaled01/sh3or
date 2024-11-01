@@ -2,15 +2,15 @@
 
 @section('content')
     <h3>إضافة فئة جديدة</h3>
-    <form action="{{ route('admin.party_categories.store') }}" method="POST">
+    <form action="{{ route('admin.party_categories.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="name">اسم الفئة</label>
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
         <div class="form-group">
-            <label for="path">المسار</label>
-            <input type="text" class="form-control" id="path" name="path" required>
+            <label for="path">تحميل صورة</label>
+            <input type="file" class="form-control-file" id="path" name="path" required>
         </div>
         <div class="form-group">
             <label for="status">الحالة</label>
