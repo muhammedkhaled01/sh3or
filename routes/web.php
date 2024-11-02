@@ -34,6 +34,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('party_facilities', PartyFacilityController::class);
     Route::resource('party_media', PartyMediaController::class);
     Route::resource('party_reservations', PartyReservationController::class);
+    Route::get('total-collected', [AdminController::class, 'totalCollected'])->name('total.collected');
+    Route::post('process-payment', [AdminController::class, 'processPayment'])->name('process.payment');
 });
 Route::post('/payment', [PaymentController::class, 'createPayment'])->name('payments.create');
 Route::get('/payment', function () {
