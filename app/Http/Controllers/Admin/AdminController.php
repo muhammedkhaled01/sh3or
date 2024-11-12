@@ -12,7 +12,8 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view("admin.index");
+        $totalCollected = PartyReservation::sum('price_after_discount');
+        return view("admin.index", compact("totalCollected"));
     }
     public function totalCollected()
     {

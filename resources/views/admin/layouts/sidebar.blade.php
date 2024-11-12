@@ -71,7 +71,7 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('payment.form') }}">
                     <div
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
@@ -82,7 +82,7 @@
                     </div>
                     <span class="nav-link-text me-1">الدفع</span>
                 </a>
-            </li>
+            </li> --}}
 
             {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.party_reservations.index') }}">
@@ -122,7 +122,7 @@
                     <span class="nav-link-text me-1">حفلات غير مفعلة</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.total.collected') }}">
                     <div
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
@@ -133,7 +133,7 @@
                     </div>
                     <span class="nav-link-text me-1">اجمالي المال</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </aside>
