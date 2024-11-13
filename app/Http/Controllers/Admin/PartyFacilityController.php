@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Facility\Facility;
 use App\Models\Party\Party;
 use App\Models\Party\PartyFacilites;
 use Illuminate\Http\Request;
@@ -24,7 +25,8 @@ class PartyFacilityController extends Controller
     public function create()
     {
         $parties = Party::all();
-        return view('admin.party_facilities.create', compact('parties'));
+        $facilities = Facility::all();
+        return view('admin.party_facilities.create', compact('parties'  , 'facilities'));
     }
 
     /**
@@ -57,7 +59,9 @@ class PartyFacilityController extends Controller
     public function edit(PartyFacilites $partyFacility)
     {
         $parties = Party::all();
-        return view('admin.party_facilities.edit', compact('partyFacility'));
+        $facilities = Facility::all();
+
+        return view('admin.party_facilities.edit', compact('partyFacility' ,'parties', 'facilities'));
     }
 
     /**

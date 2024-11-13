@@ -18,8 +18,16 @@
         </div>
         <div class="form-group">
             <label for="facility_id">المنشأة</label>
-            <input type="number" class="form-control" id="facility_id" name="facility_id"
-                value="{{ $partyFacility->facility_id }}" required>
+
+            <select class="form-control" id="facility_id" name="facility_id" required>
+                <option value="">اختر الحفلة</option>
+                @foreach ($facilities as $facility)
+                    <option value="{{ $facility->id }}"
+                        {{ $partyFacility->facility_id == $facility->id ? 'selected' : '' }}>
+                        {{ $facility->name }}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="status">الحالة</label>
