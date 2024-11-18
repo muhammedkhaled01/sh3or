@@ -20,8 +20,8 @@
             @foreach ($facilities as $facility)
                 <tr>
                     <td>{{ $facility->id }}</td>
-                    <td>{{ $facility->party_id }}</td>
-                    <td>{{ $facility->facility_id }}</td>
+                    <td>{{ $facility->party->name }}</td>
+                    <td>{{ $facility->facility->name}}</td>
                     <td>{{ $facility->status ? 'نشط' : 'غير نشط' }}</td>
                     <td>
                         <a href="{{ route('admin.party_facilities.edit', $facility->id) }}" class="btn btn-warning">تعديل</a>

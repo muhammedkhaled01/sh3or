@@ -34,6 +34,7 @@ class Party extends Model
     {
         return $this->belongsTo(PartyCategory::class, 'category_id');
     }
+    
 
     public function scopeActive($query)
     {
