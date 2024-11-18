@@ -39,7 +39,7 @@
                                 d="M40.25,14 L24.5,14 C23.53225,14 22.75,14.78225 22.75,15.75 L22.75,38.5 Z" />
                         </svg>
                     </div>
-                    <span class="nav-link-text me-1">المنشأت</span>
+                    <span class="nav-link-text me-1">المرفقات</span>
                 </a>
             </li>
 
@@ -57,7 +57,7 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.party_facilities.index') }}">
                     <div
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
@@ -69,7 +69,7 @@
                     </div>
                     <span class="nav-link-text me-1">منشآت الحفلات</span>
                 </a>
-            </li>
+            </li> --}}
 
             {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('payment.form') }}">
