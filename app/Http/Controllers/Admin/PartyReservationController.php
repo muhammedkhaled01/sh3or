@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Party\PartyReservation;
 use Illuminate\Http\Request;
 
 class PartyReservationController extends Controller
@@ -12,7 +13,8 @@ class PartyReservationController extends Controller
      */
     public function index()
     {
-        //
+        $reservations = PartyReservation::with(['party', 'vendor', 'customer'])->get(); // Adjust relationships as needed
+        return view('admin.party_reservation.index', compact('reservations'));
     }
 
     /**

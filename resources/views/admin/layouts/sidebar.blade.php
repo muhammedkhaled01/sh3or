@@ -3,7 +3,7 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute start-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href="{{ route('admin.index') }}" target="_blank">
+        <a class="navbar-brand m-0" href="{{ route('admin.index') }}" >
             <img src="{{ asset('assets/img/logo-ct-dark.png') }}" class="navbar-brand-img h-100" alt="main_logo">
         </a>
     </div>
@@ -54,6 +54,19 @@
                         </svg>
                     </div>
                     <span class="nav-link-text me-1">الفئات</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.settings.index') }}">
+                    <div
+                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+                        <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path class="color-background opacity-6"
+                                d="M12.25,17.5 L8.75,17.5 L8.75,1.75 C8.75,0.78225 9.53225,0 10.5,0 L31.5,0 Z" />
+                        </svg>
+                    </div>
+                    <span class="nav-link-text me-1">الاعدادات</span>
                 </a>
             </li>
 
@@ -120,6 +133,18 @@
                         </svg>
                     </div>
                     <span class="nav-link-text me-1">حفلات غير مفعلة</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.party_reservations.index') }}">
+                    <div
+                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+                        <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path class="color-background opacity-6" d="M12.25,17.5 L8.75,17.5 L8.75,1.75 Z" />
+                        </svg>
+                    </div>
+                    <span class="nav-link-text me-1">الطلبات</span>
                 </a>
             </li>
             {{-- <li class="nav-item">

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PartyCategoryController;
 use App\Http\Controllers\Admin\PartyFacilityController;
 use App\Http\Controllers\Admin\PartyMediaController;
 use App\Http\Controllers\Admin\PartyReservationController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('party_reservations', PartyReservationController::class);
         Route::get('total-collected', [AdminController::class, 'totalCollected'])->name('total.collected');
         Route::post('process-payment', [AdminController::class, 'processPayment'])->name('process.payment');
+        Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+        Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
     });
     Route::post('/payment', [PaymentController::class, 'createPayment'])->name('payments.create');
     Route::get('/payment', function () {

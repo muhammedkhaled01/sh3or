@@ -4,6 +4,7 @@ namespace App\Models\Party;
 
 use App\Enums\Party\Reservation\PayType;
 use App\Enums\Party\Reservation\ReservationStatus;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,5 +44,20 @@ class PartyReservation extends Model
             $model->reservation_number = 'R' . generateUniqNumber(4) . "-" . Carbon::now()->format("m/Y");
 
         });
+    }
+    public function party()
+    {
+        return $this->belongsTo(Party::class);
+    }
+
+
+    public function vendor()
+    {
+        return $this->belongsTo(User::class, 'vendor_id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'customer_id');
     }
 }

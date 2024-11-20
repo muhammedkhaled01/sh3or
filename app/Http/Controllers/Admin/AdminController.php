@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Discount;
 use App\Models\Party\PartyReservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -13,7 +14,10 @@ class AdminController extends Controller
     public function index()
     {
         $totalCollected = PartyReservation::sum('price_after_discount');
-        return view("admin.index", compact("totalCollected"));
+        $discount = Discount::first(); // Get the discount rate
+        $priceAfterDiscount = $totalCollected * (1 - ($discount->discount ?? 0) / 100); // Calculate discounted price
+
+        return view("admin.index", compact("totalCollected",  'discount', 'priceAfterDiscount'));
     }
     public function totalCollected()
     {
